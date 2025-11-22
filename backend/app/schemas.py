@@ -1,0 +1,49 @@
+from pydantic import BaseModel, EmailStr, HttpUrl, Field
+from typing import Optional
+from datetime import datetime
+from enum import Enum
+
+class SectionEnum(str, Enum):
+    A = "A"
+    B = "B"
+    C = "C"
+    D = "D"
+
+class StudentBase(BaseModel):
+    roll_number: str
+    email: EmailStr
+    name: str
+    section: SectionEnum
+    github_username: Optional[str] = None
+    leetcode_username: Optional[str] = None
+    linkedin_url: Optional[HttpUrl] = None
+    figma_url: Optional[HttpUrl] = None
+    portfolio_url: Optional[HttpUrl] = None
+    skills_description: Optional[str] = None
+    bio_description: Optional[str] = None
+
+class StudentCreate(StudentBase):
+    pass
+
+class StudentUpdate(BaseModel):
+    name: Optional[str] = None
+    section: Optional[SectionEnum] = None
+    github_username: Optional[str] = None
+    leetcode_username: Optional[str] = None
+    linkedin_url: Optional[HttpUrl] = None
+    figma_url: Optional[HttpUrl] = None
+    portfolio_url: Optional[HttpUrl] = None
+    skills_description: Optional[str] = None
+    bio_description: Optional[str] = None
+
+class StudentResponse(StudentBase):
+    id: int
+    section: str # Use str instead of Enum for response to be more robust
+    gmail_photo_url: Optional[str] = None
+    github_commits_count: int = 0
+    leetcode_points: int = 0
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
