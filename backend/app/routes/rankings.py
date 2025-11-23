@@ -25,6 +25,12 @@ def refresh_rankings(background_tasks: BackgroundTasks, db: Session = Depends(ge
     background_tasks.add_task(update_student_data, db)
     return {"message": "Ranking refresh triggered"}
 
-def update_student_data(db: Session):
-    # Placeholder for background update logic
-    pass
+from ..services.stats_service import update_student_stats
+import asyncio
+
+async def update_student_data(db: Session):
+    students = db.query(Student).all()
+    for student in students:
+        await update_student_stats(db, student)
+        # Add a small delay to avoid hitting rate limits too hard
+        await asyncio.sleep(1)

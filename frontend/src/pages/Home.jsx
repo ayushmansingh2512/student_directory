@@ -30,11 +30,11 @@ const Home = () => {
     };
 
     return (
-        <div className="bg-bg-light">
-            <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="text-center mb-12">
+        <div className="  ">
+            <main className=" flex flex-col mt-[400px]  gap-6">
+                <div className="text-center mb-12 flex flex-col gap-6">
                     <h1 className="text-5xl font-extrabold text-text-main mb-3">KIET Student Directory</h1>
-                    <p className="text-xl text-text-light max-w-2xl mx-auto">
+                    <p className="text-xl text-center text-text-light ">
                         Discover and connect with the talented students of KIET Group of Institutions.
                     </p>
                 </div>

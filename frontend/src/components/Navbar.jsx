@@ -9,30 +9,30 @@ const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <nav className="  h-20 bg-white/95 backdrop-blur-xl border-b border-gray-200 z-50 transition-all duration-300 shadow-sm">
-            <div className="flex">
+        <nav className=" w-[90vw] flex items-center justify-between align-middle">
+            <div className="flex w-[60vw] justify-between ">
                 {/* Logo */}
                 <Link
                     to="/"
-                    className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent tracking-tight hover:opacity-80 transition-opacity"
+                    className=""
                 >
                     KIETMap
                 </Link>
 
                 {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center gap-8">
+                <div className=" ">
                     
                     <Link
                         to="/rankings"
-                        className="text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors relative group"
+                        className=" "
                     >
                         Rankings
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-600 group-hover:w-full transition-all duration-300"></span>
+                        <span className=" "></span>
                     </Link>
                 </div>
 
                 {/* Right Section - Desktop Button & Mobile Menu Button */}
-                <div className="flex items-center gap-4">
+                <div className="">
                     <Link to="/register" className="hidden md:block">
                         <Button variant="primary" size="md">
                             Register Student

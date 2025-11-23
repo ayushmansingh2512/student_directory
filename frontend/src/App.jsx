@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <main className="pt-20 min-h-screen bg-gradient-to-br from-gray-50 via-white to-orange-50">
+      <main className=" ">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/rankings" element={<Rankings />} />

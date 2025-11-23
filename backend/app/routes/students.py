@@ -4,6 +4,8 @@ from typing import List, Optional
 from ..database import get_db
 from ..models import Student
 from ..schemas import StudentResponse, SectionEnum
+from ..services.stats_service import update_student_stats
+
 
 router = APIRouter(
     prefix="/api/students",
@@ -28,3 +30,12 @@ def get_student(roll_number: str, db: Session = Depends(get_db)):
     if not student:
         raise HTTPException(status_code=404, detail="Student not found")
     return student
+
+@router.post("/{roll_number}/refresh", response_model=StudentResponse)
+async def refresh_student_stats(roll_number: str, db: Session = Depends(get_db)):
+    student = db.query(Student).filter(Student.roll_number == roll_number).first()
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
+    
+    updated_student = await update_student_stats(db, student)
+    return updated_student

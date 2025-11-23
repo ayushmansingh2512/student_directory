@@ -13,7 +13,7 @@ const Badge = ({ children, variant = 'default', className }) => {
 
     return (
         <span className={twMerge(
-            "inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold",
+            " ",
             variants[variant],
             className
         )}>
