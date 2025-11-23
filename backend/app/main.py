@@ -59,7 +59,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "https://*.vercel.app",  # Allow all Vercel deployments
-        "https://kietrain.vercel.app",  # Your production domain (update this)
+        "https://student-directory-psi.vercel.app",  # Your production domain
     ],
     allow_credentials=True,
     allow_methods=["*"],
