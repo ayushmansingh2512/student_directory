@@ -58,7 +58,6 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://*.vercel.app",  # Allow all Vercel deployments
         "https://student-directory-psi.vercel.app",  # Your production domain
     ],
     allow_credentials=True,
