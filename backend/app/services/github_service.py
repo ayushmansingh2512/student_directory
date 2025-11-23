@@ -1,9 +1,10 @@
 import httpx
 import os
+from typing import Optional
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
-async def get_github_commits(username: str) -> int:
+async def get_github_commits(username: str) -> Optional[int]:
     if not username:
         return 0
     
@@ -87,4 +88,4 @@ async def get_github_commits(username: str) -> int:
         except Exception:
             pass
 
-    return 0
+    return None

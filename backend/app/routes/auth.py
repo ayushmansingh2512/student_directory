@@ -45,10 +45,12 @@ async def register_student(student: StudentCreate, db: Session = Depends(get_db)
     from ..services.gmail_service import get_gmail_photo
     
     if student_data.get('github_username'):
-        student_data['github_commits_count'] = await get_github_commits(student_data['github_username'])
+        commits = await get_github_commits(student_data['github_username'])
+        student_data['github_commits_count'] = commits if commits is not None else 0
         
     if student_data.get('leetcode_username'):
-        student_data['leetcode_points'] = await get_leetcode_stats(student_data['leetcode_username'])
+        points = await get_leetcode_stats(student_data['leetcode_username'])
+        student_data['leetcode_points'] = points if points is not None else 0
         
     if student_data.get('email'):
         student_data['gmail_photo_url'] = await get_gmail_photo(

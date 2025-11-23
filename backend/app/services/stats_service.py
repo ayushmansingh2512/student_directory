@@ -16,9 +16,11 @@ async def update_student_stats(db: Session, student: Student):
     if student.github_username:
         try:
             commits = await get_github_commits(student.github_username)
-            if commits != student.github_commits_count:
+            if commits is not None and commits != student.github_commits_count:
                 student.github_commits_count = commits
                 changes_made = True
+            elif commits is None:
+                logger.warning(f"Failed to fetch GitHub commits for {student.name}")
         except Exception as e:
             logger.error(f"Error updating GitHub stats for {student.name}: {e}")
 
@@ -26,9 +28,11 @@ async def update_student_stats(db: Session, student: Student):
     if student.leetcode_username:
         try:
             points = await get_leetcode_stats(student.leetcode_username)
-            if points != student.leetcode_points:
+            if points is not None and points != student.leetcode_points:
                 student.leetcode_points = points
                 changes_made = True
+            elif points is None:
+                logger.warning(f"Failed to fetch LeetCode stats for {student.name}")
         except Exception as e:
             logger.error(f"Error updating LeetCode stats for {student.name}: {e}")
 

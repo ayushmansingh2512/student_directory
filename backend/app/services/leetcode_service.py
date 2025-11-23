@@ -1,6 +1,7 @@
 import httpx
+from typing import Optional
 
-async def get_leetcode_stats(username: str) -> int:
+async def get_leetcode_stats(username: str) -> Optional[int]:
     if not username:
         return 0
         
@@ -40,7 +41,7 @@ async def get_leetcode_stats(username: str) -> int:
                 return 0
             else:
                 print(f"LeetCode API Error: {response.status_code}")
-                return 0
+                return None
     except Exception as e:
         print(f"Error fetching LeetCode stats: {e}")
-        return 0
+        return None
