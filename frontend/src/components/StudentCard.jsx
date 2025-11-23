@@ -2,28 +2,29 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, Code, User } from 'lucide-react';
 
-const StatPill = ({ icon: Icon, value, label, color }) => (
-    <div className="flex items-center gap-2">
-        <Icon size={18} className={color} />
-        <div>
-            <p className="font-bold text-sm text-text-main">{value}</p>
-            <p className="text-xs text-text-light">{label}</p>
-        </div>
-    </div>
-);
-
 const StudentCard = ({ student, onClick }) => {
     return (
         <motion.div
             layout
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
             onClick={() => onClick(student)}
             className="group cursor-pointer"
         >
-            <div className="relative w-full h-[420px] rounded-2xl overflow-hidden p-1 bg-white shadow-medium transition-all duration-300 hover:shadow-lg hover:border-accent border-2 border-transparent">
-                <div className="relative w-full h-2/5 rounded-xl overflow-hidden bg-gray-100">
+            {/* Ticket-Style Card */}
+            <div className="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-xl border-4 border-gray-900 overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+
+                {/* Header Strip */}
+                <div className="bg-gray-900 text-yellow-50 px-4 py-2 border-b-4 border-gray-900">
+                    <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold tracking-wider">STUDENT ID</span>
+                        <span className="text-xs font-mono">{student.roll_number}</span>
+                    </div>
+                </div>
+
+                {/* Image Container */}
+                <div className="relative w-full aspect-square overflow-hidden bg-gray-100 border-b-4 border-gray-900">
                     {student.gmail_photo_url ? (
                         <img
                             src={student.gmail_photo_url}
@@ -31,50 +32,52 @@ const StudentCard = ({ student, onClick }) => {
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                     ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-200">
-                            <User size={48} />
+                        <div className="w-full h-full flex items-center justify-center text-gray-300 bg-gray-100">
+                            <User size={64} />
                         </div>
                     )}
                 </div>
 
-                <div className="absolute top-[35%] left-1/2 -translate-x-1/2">
-                    <div className="w-24 h-24 rounded-full border-4 border-white bg-white shadow-lg overflow-hidden">
-                        <img
-                            src={student.gmail_photo_url || 'https://via.placeholder.com/150'}
-                            alt={student.name}
-                            className="w-full h-full object-cover"
-                        />
+                {/* Content */}
+                <div className="p-4">
+                    {/* Name Section */}
+                    <div className="border-4 border-gray-900 border-l-0 border-r-0 border-t-0 pb-3 mb-3">
+                        <div className="text-xs font-bold text-gray-600 uppercase tracking-wider">Name</div>
+                        <h3 className="text-lg font-black text-gray-900 truncate uppercase tracking-wide">
+                            {student.name}
+                        </h3>
                     </div>
+
+                    {/* Stats Grid */}
+                    {(student.github_username || student.leetcode_username) && (
+                        <div className="grid grid-cols-2 gap-2">
+                            {student.github_username && (
+                                <div className="border-4 border-gray-900 border-r-2 border-b-0 p-2 bg-white">
+                                    <div className="flex items-center gap-1 mb-1">
+                                        <Github size={12} className="text-gray-900" />
+                                        <span className="text-xs font-bold text-gray-600">GitHub</span>
+                                    </div>
+                                    <p className="text-xl font-black text-gray-900">{student.github_commits_count || 0}</p>
+                                    <p className="text-xs text-gray-500 uppercase">commits</p>
+                                </div>
+                            )}
+                            {student.leetcode_username && (
+                                <div className="border-4 border-gray-900 border-l-2 border-b-0 p-2 bg-white">
+                                    <div className="flex items-center gap-1 mb-1">
+                                        <Code size={12} className="text-orange-600" />
+                                        <span className="text-xs font-bold text-gray-600">LeetCode</span>
+                                    </div>
+                                    <p className="text-xl font-black text-gray-900">{student.leetcode_points || 0}</p>
+                                    <p className="text-xs text-gray-500 uppercase">solved</p>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
 
-                <div className="absolute top-[calc(35%+48px)] left-0 right-0 p-4 text-center">
-                    <h3 className="text-xl font-bold text-text-main group-hover:text-accent transition-colors duration-300">
-                        {student.name}
-                    </h3>
-                    <p className="text-sm text-text-light">
-                        {student.roll_number}
-                    </p>
-                </div>
-
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-white/50 backdrop-blur-sm rounded-b-xl">
-                    <div className="flex justify-around items-center">
-                        {student.github_username && (
-                            <StatPill
-                                icon={Github}
-                                value={student.github_commits_count || 0}
-                                label="Commits"
-                                color="text-green-500"
-                            />
-                        )}
-                        {student.leetcode_username && (
-                            <StatPill
-                                icon={Code}
-                                value={student.leetcode_points || 0}
-                                label="Points"
-                                color="text-orange-500"
-                            />
-                        )}
-                    </div>
+                {/* Bottom Barcode Strip */}
+                <div className="bg-gray-900 px-4 py-2 border-t-4 border-gray-900">
+                    <div className="h-8 bg-gradient-to-r from-yellow-50 via-gray-700 to-yellow-50 bg-[length:3px_100%] bg-repeat-x opacity-50"></div>
                 </div>
             </div>
         </motion.div>

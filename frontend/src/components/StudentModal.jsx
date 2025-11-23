@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Github, Code, Linkedin, Figma, Globe, User, Trophy, RefreshCw } from 'lucide-react';
+import { X, Github, Code, Linkedin, Figma, Globe, RefreshCw } from 'lucide-react';
 import axios from 'axios';
 
 const StudentModal = ({ student: initialStudent, onClose }) => {
     const [student, setStudent] = useState(initialStudent);
-    const [viewPortfolio, setViewPortfolio] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
 
     const handleRefresh = async () => {
@@ -25,171 +24,114 @@ const StudentModal = ({ student: initialStudent, onClose }) => {
     return (
         <AnimatePresence>
             <div
-                className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
+                className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
                 onClick={onClose}
             >
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.2 }}
                     onClick={(e) => e.stopPropagation()}
-                    className="relative w-full max-w-2xl bg-gradient-to-br from-white via-white to-gray-50 rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto border border-gray-100"
+                    className="relative w-full max-w-md max-h-[90vh] overflow-y-auto pt-16"
                 >
-                    {/* Close Button */}
-                    <button
-                        onClick={onClose}
-                        className="absolute top-6 right-6 p-2 rounded-full hover:bg-gray-200 transition-all duration-200 z-10 hover:scale-110"
-                    >
-                        <X size={24} className="text-gray-600" />
-                    </button>
+                    {/* Ticket Card */}
+                    <div className="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-2xl border-4 border-gray-900 shadow-2xl relative">
 
-                    {/* Header with Gradient Background */}
-                    <div className="relative h-56 bg-gradient-to-br from-orange-400 via-orange-300 to-orange-200 overflow-hidden">
-                        {/* Decorative elements */}
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-40 -mt-40"></div>
-                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full -ml-32 -mb-32"></div>
+                        {/* Close Button */}
+                        <button
+                            onClick={onClose}
+                            className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-900 hover:text-yellow-50 transition-all z-10"
+                        >
+                            <X size={20} className="text-gray-900" />
+                        </button>
 
-                        {/* Profile Photo */}
-                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-10">
+                        {/* Avatar Circle */}
+                        <div className="absolute top-[-60px] left-1/2 -translate-x-1/2 w-32 h-32 rounded-full border-4 border-gray-900 bg-white shadow-xl overflow-hidden z-20">
                             {student.gmail_photo_url ? (
                                 <img
                                     src={student.gmail_photo_url}
                                     alt={student.name}
-                                    className="w-40 h-40 rounded-full object-cover border-4 border-white shadow-2xl"
+                                    className="w-full h-full object-cover"
                                 />
                             ) : (
-                                <div className="w-40 h-40 rounded-full bg-gray-300 border-4 border-white shadow-2xl flex items-center justify-center">
-                                    <User size={56} className="text-gray-500" />
+                                <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 text-4xl font-black">
+                                    {student.name.charAt(0)}
                                 </div>
                             )}
                         </div>
-                    </div>
 
-                    {/* Content */}
-                    <div className="pt-28 px-8 pb-8">
-                        {/* Name & Roll */}
-                        <motion.div
-                            className="text-center mb-8"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 }}
-                        >
-                            <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">
-                                {student.name}
-                            </h2>
-                            <div className="flex items-center justify-center gap-4 text-gray-600 text-sm flex-wrap">
-                                <span className="px-3 py-1 bg-orange-50 text-orange-700 rounded-full font-medium">
-                                    Roll: {student.roll_number}
-                                </span>
-                                <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full font-medium">
-                                    Section {student.section}
-                                </span>
-                            </div>
-                        </motion.div>
-
-                        {/* Stats Grid */}
-                        <motion.div
-                            className="grid grid-cols-2 gap-4 mb-8"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.15 }}
-                        >
-                            <div className="relative group">
-                                <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-300 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                                <div className="relative bg-white rounded-2xl p-5 text-center border border-gray-200 group-hover:border-orange-200 transition">
-                                    <div className="flex items-center justify-center gap-2 mb-2">
-                                        <Github size={18} className="text-orange-600" />
-                                        <span className="text-xs font-semibold text-gray-600">GitHub</span>
-                                    </div>
-                                    <p className="text-3xl font-bold text-gray-900">{student.github_commits_count || 0}</p>
-                                    <p className="text-xs text-gray-500 mt-1">Commits</p>
-                                </div>
-                            </div>
-
-                            <div className="relative group">
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-300 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                                <div className="relative bg-white rounded-2xl p-5 text-center border border-gray-200 group-hover:border-blue-200 transition">
-                                    <div className="flex items-center justify-center gap-2 mb-2">
-                                        <Trophy size={18} className="text-blue-600" />
-                                        <span className="text-xs font-semibold text-gray-600">LeetCode</span>
-                                    </div>
-                                    <p className="text-3xl font-bold text-gray-900">{student.leetcode_points || 0}</p>
-                                    <p className="text-xs text-gray-500 mt-1">Points</p>
-                                </div>
-                            </div>
-                        </motion.div>
-
-                        {/* Refresh Button */}
-                        <div className="flex justify-center mb-8">
-                            <button
-                                onClick={handleRefresh}
-                                disabled={isRefreshing}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${isRefreshing
-                                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                        : 'bg-white border border-gray-200 text-gray-600 hover:border-orange-300 hover:text-orange-600 hover:shadow-sm'
-                                    }`}
-                            >
-                                <RefreshCw size={16} className={isRefreshing ? 'animate-spin' : ''} />
-                                {isRefreshing ? 'Updating...' : 'Refresh Stats'}
-                            </button>
-                        </div>
-
-                        {/* Bio Section */}
-                        {student.bio_description && (
-                            <motion.div
-                                className="mb-8"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                            >
-                                <h3 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-3 pl-1">About</h3>
-                                <p className="text-gray-700 text-sm leading-relaxed bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                    {student.bio_description}
+                        {/* Content */}
+                        <div className="pt-20 pb-6 px-6">
+                            {/* Name & Info */}
+                            <div className="text-center mb-4">
+                                <h2 className="text-2xl font-black text-gray-900 uppercase tracking-wide mb-1">
+                                    {student.name}
+                                </h2>
+                                <p className="text-sm font-bold text-gray-600 uppercase tracking-wider">
+                                    {student.roll_number} • Section {student.section}
                                 </p>
-                            </motion.div>
-                        )}
+                            </div>
 
-                        {/* Skills Section */}
-                        {student.skills_description && (
-                            <motion.div
-                                className="mb-8"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.25 }}
-                            >
-                                <h3 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-3 pl-1">Skills</h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {student.skills_description.split(',').map((skill, idx) => (
-                                        <span
-                                            key={idx}
-                                            className="px-3 py-1 bg-gradient-to-r from-orange-100 to-orange-50 text-orange-700 rounded-full text-xs font-medium border border-orange-200"
-                                        >
-                                            {skill.trim()}
-                                        </span>
-                                    ))}
+                            {/* Color Band */}
+                            <div className="h-1 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 mb-4"></div>
+
+                            {/* Bio */}
+                            {student.bio_description && (
+                                <div className="mb-4">
+                                    <p className="text-sm text-gray-700 text-center leading-relaxed">
+                                        {student.bio_description}
+                                    </p>
                                 </div>
-                            </motion.div>
-                        )}
+                            )}
 
-                        {/* Connect Section */}
-                        <motion.div
-                            className="border-t border-gray-200 pt-6"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                        >
-                            <h3 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-4 pl-1">Connect</h3>
-                            <div className="grid grid-cols-2 gap-3">
+                            {/* Skills */}
+                            {student.skills_description && (
+                                <div className="mb-4">
+                                    <div className="flex flex-wrap gap-2 justify-center">
+                                        {student.skills_description.split(',').map((skill, idx) => (
+                                            <span
+                                                key={idx}
+                                                className="px-3 py-1 bg-gray-900 text-yellow-50 rounded-full text-xs font-bold uppercase"
+                                            >
+                                                {skill.trim()}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Stats */}
+                            <div className="grid grid-cols-2 gap-3 mb-4">
+                                <div className="text-center p-3 bg-white rounded-xl border-2 border-gray-900">
+                                    <div className="flex items-center justify-center gap-1 mb-1">
+                                        <Github size={14} className="text-gray-900" />
+                                        <span className="text-xs font-bold text-gray-600 uppercase">GitHub</span>
+                                    </div>
+                                    <div className="text-2xl font-black text-gray-900">{student.github_commits_count || 0}</div>
+                                    <div className="text-xs text-gray-500 uppercase">commits</div>
+                                </div>
+                                <div className="text-center p-3 bg-white rounded-xl border-2 border-gray-900">
+                                    <div className="flex items-center justify-center gap-1 mb-1">
+                                        <Code size={14} className="text-orange-600" />
+                                        <span className="text-xs font-bold text-gray-600 uppercase">LeetCode</span>
+                                    </div>
+                                    <div className="text-2xl font-black text-gray-900">{student.leetcode_points || 0}</div>
+                                    <div className="text-xs text-gray-500 uppercase">solved</div>
+                                </div>
+                            </div>
+
+                            {/* Social Links */}
+                            <div className="grid grid-cols-2 gap-2 mb-4">
                                 {student.github_username && (
                                     <a
                                         href={`https://github.com/${student.github_username}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-2 p-3 rounded-xl bg-gray-50 hover:bg-orange-50 border border-gray-200 hover:border-orange-300 transition-all hover:shadow-md group"
+                                        className="flex items-center justify-center gap-1 py-2 rounded-lg font-bold uppercase text-xs bg-white border-2 border-gray-900 hover:bg-gray-900 hover:text-yellow-50 transition-all"
                                     >
-                                        <Github size={18} className="text-gray-600 group-hover:text-orange-600 transition" />
-                                        <span className="text-sm font-medium text-gray-700 group-hover:text-orange-700 transition">GitHub</span>
+                                        <Github size={14} />
+                                        GitHub
                                     </a>
                                 )}
                                 {student.leetcode_username && (
@@ -197,10 +139,10 @@ const StudentModal = ({ student: initialStudent, onClose }) => {
                                         href={`https://leetcode.com/${student.leetcode_username}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-2 p-3 rounded-xl bg-gray-50 hover:bg-blue-50 border border-gray-200 hover:border-blue-300 transition-all hover:shadow-md group"
+                                        className="flex items-center justify-center gap-1 py-2 rounded-lg font-bold uppercase text-xs bg-white border-2 border-gray-900 hover:bg-gray-900 hover:text-yellow-50 transition-all"
                                     >
-                                        <Code size={18} className="text-gray-600 group-hover:text-blue-600 transition" />
-                                        <span className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition">LeetCode</span>
+                                        <Code size={14} />
+                                        LeetCode
                                     </a>
                                 )}
                                 {student.linkedin_url && (
@@ -208,10 +150,21 @@ const StudentModal = ({ student: initialStudent, onClose }) => {
                                         href={student.linkedin_url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-2 p-3 rounded-xl bg-gray-50 hover:bg-blue-50 border border-gray-200 hover:border-blue-400 transition-all hover:shadow-md group"
+                                        className="flex items-center justify-center gap-1 py-2 rounded-lg font-bold uppercase text-xs bg-white border-2 border-gray-900 hover:bg-gray-900 hover:text-yellow-50 transition-all"
                                     >
-                                        <Linkedin size={18} className="text-gray-600 group-hover:text-blue-600 transition" />
-                                        <span className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition">LinkedIn</span>
+                                        <Linkedin size={14} />
+                                        LinkedIn
+                                    </a>
+                                )}
+                                {student.portfolio_url && (
+                                    <a
+                                        href={student.portfolio_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center justify-center gap-1 py-2 rounded-lg font-bold uppercase text-xs bg-white border-2 border-gray-900 hover:bg-gray-900 hover:text-yellow-50 transition-all"
+                                    >
+                                        <Globe size={14} />
+                                        Portfolio
                                     </a>
                                 )}
                                 {student.figma_url && (
@@ -219,51 +172,37 @@ const StudentModal = ({ student: initialStudent, onClose }) => {
                                         href={student.figma_url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-2 p-3 rounded-xl bg-gray-50 hover:bg-purple-50 border border-gray-200 hover:border-purple-300 transition-all hover:shadow-md group"
+                                        className="flex items-center justify-center gap-1 py-2 rounded-lg font-bold uppercase text-xs bg-white border-2 border-gray-900 hover:bg-gray-900 hover:text-yellow-50 transition-all"
                                     >
-                                        <Figma size={18} className="text-gray-600 group-hover:text-purple-600 transition" />
-                                        <span className="text-sm font-medium text-gray-700 group-hover:text-purple-700 transition">Figma</span>
+                                        <Figma size={14} />
+                                        Figma
                                     </a>
                                 )}
-                                {student.portfolio_url && (
-                                    <button
-                                        onClick={() => setViewPortfolio(true)}
-                                        className="flex items-center gap-2 p-3 rounded-xl bg-gray-50 hover:bg-green-50 border border-gray-200 hover:border-green-300 transition-all hover:shadow-md group"
-                                    >
-                                        <Globe size={18} className="text-gray-600 group-hover:text-green-600 transition" />
-                                        <span className="text-sm font-medium text-gray-700 group-hover:text-green-700 transition">Portfolio</span>
-                                    </button>
-                                )}
                             </div>
-                        </motion.div>
-                    </div>
 
-                    {/* Portfolio Preview Modal */}
-                    <AnimatePresence>
-                        {viewPortfolio && student.portfolio_url && (
-                            <motion.div
-                                className="absolute inset-0 bg-white z-20 flex flex-col rounded-3xl"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                            >
-                                <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gray-50">
-                                    <h3 className="font-semibold text-lg text-gray-900">Portfolio Preview</h3>
-                                    <button
-                                        onClick={() => setViewPortfolio(false)}
-                                        className="p-2 rounded-full hover:bg-gray-200 transition-all hover:scale-110"
-                                    >
-                                        <X size={20} className="text-gray-600" />
-                                    </button>
-                                </div>
-                                <iframe
-                                    src={student.portfolio_url}
-                                    className="flex-1 w-full border-0"
-                                    title="Portfolio Preview"
-                                />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                            {/* Refresh Button */}
+                            <div className="border-t-2 border-gray-900 pt-4">
+                                <button
+                                    onClick={handleRefresh}
+                                    disabled={isRefreshing}
+                                    className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold uppercase text-sm transition-all ${isRefreshing
+                                            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                            : 'bg-gray-900 text-yellow-50 hover:bg-gray-800 border-2 border-gray-900'
+                                        }`}
+                                >
+                                    <RefreshCw size={16} className={isRefreshing ? 'animate-spin' : ''} />
+                                    {isRefreshing ? 'Updating Stats...' : 'Refresh Stats'}
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Bottom Strip */}
+                        <div className="bg-gray-900 px-6 py-3 border-t-4 border-gray-900">
+                            <div className="text-center text-xs font-mono font-bold text-yellow-50 tracking-widest">
+                                KIET DIRECTORY • 2024
+                            </div>
+                        </div>
+                    </div>
                 </motion.div>
             </div>
         </AnimatePresence>

@@ -9,13 +9,11 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <main className=" ">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/rankings" element={<Rankings />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/rankings" element={<Rankings />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </Router>
   );
 }

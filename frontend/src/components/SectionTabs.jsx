@@ -6,31 +6,30 @@ const SectionTabs = ({ activeSection, onSectionChange }) => {
     const sections = ['A', 'B', 'C', 'D'];
 
     return (
-        <div className="flex justify-center border-b border-gray-200 mb-8">
-            <div className="flex items-center gap-4">
+        <div className="flex justify-center mb-8">
+            <div className="relative inline-flex bg-gray-900 rounded-xl border-4 border-gray-900 p-1">
                 {sections.map((section) => (
-                    <div key={section} className="relative">
-                        <motion.button
-                            onClick={() => onSectionChange(section)}
-                            whileTap={{ scale: 0.95 }}
-                            className={clsx(
-                                'px-6 py-3 font-semibold text-lg transition-colors duration-300 whitespace-nowrap',
-                                {
-                                    'text-accent': activeSection === section,
-                                    'text-text-light hover:text-text-main': activeSection !== section,
-                                }
-                            )}
-                        >
-                            Section {section}
-                        </motion.button>
-                        {activeSection === section && (
-                            <motion.div
-                                layoutId="active-tab-indicator"
-                                className="absolute bottom-0 left-0 right-0 h-1 bg-accent rounded-t-full"
-                            />
+                    <button
+                        key={section}
+                        onClick={() => onSectionChange(section)}
+                        className={clsx(
+                            'relative z-10 px-8 py-3 rounded-lg font-black text-lg uppercase tracking-wider transition-all duration-300',
+                            activeSection === section
+                                ? 'text-gray-900'
+                                : 'text-yellow-50 hover:text-yellow-300'
                         )}
-                    </div>
+                    >
+                        Sec {section}
+                    </button>
                 ))}
+                <motion.div
+                    layout
+                    className="absolute h-[calc(100%-8px)] w-[calc(25%-4px)] rounded-lg bg-yellow-400 border-2 border-gray-900 shadow-lg"
+                    style={{
+                        left: `${sections.indexOf(activeSection) * 25 + 1}%`
+                    }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                />
             </div>
         </div>
     );

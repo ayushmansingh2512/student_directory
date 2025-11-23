@@ -30,13 +30,31 @@ const Home = () => {
     };
 
     return (
-        <div className="  ">
-            <main className=" flex flex-col mt-[400px]  gap-6">
-                <div className="text-center mb-12 flex flex-col gap-6">
-                    <h1 className="text-5xl font-extrabold text-text-main mb-3">KIET Student Directory</h1>
-                    <p className="text-xl text-center text-text-light ">
-                        Discover and connect with the talented students of KIET Group of Institutions.
-                    </p>
+        <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50">
+            <main className="max-w-7xl mx-auto px-6 py-12">
+                {/* Ticket-Style Hero Section */}
+                <div className="text-center mb-12 bg-gradient-to-br from-yellow-50 to-amber-50 rounded-2xl border-4 border-gray-900 overflow-hidden">
+                    {/* Header Strip */}
+                    <div className="bg-gray-900 text-yellow-50 px-8 py-6 border-b-4 border-gray-900">
+                        <h1 className="text-5xl font-black tracking-wider uppercase">
+                            KIET Student Directory
+                        </h1>
+                        <p className="text-lg text-yellow-300 mt-2 font-semibold tracking-wide">
+                            OFFICIAL STUDENT PASS SYSTEM
+                        </p>
+                    </div>
+
+                    {/* Content */}
+                    <div className="py-12 px-8">
+                        <p className="text-xl text-gray-700 max-w-2xl mx-auto font-semibold">
+                            Discover and connect with the talented students of KIET Group of Institutions.
+                        </p>
+                    </div>
+
+                    {/* Bottom Barcode Strip */}
+                    <div className="bg-gray-900 px-8 py-4 border-t-4 border-gray-900">
+                        <div className="h-12 bg-gradient-to-r from-yellow-50 via-gray-700 to-yellow-50 bg-[length:4px_100%] bg-repeat-x opacity-40"></div>
+                    </div>
                 </div>
 
                 <SectionTabs activeSection={activeSection} onSectionChange={setActiveSection} />
@@ -50,7 +68,7 @@ const Home = () => {
                         <p className="text-lg text-gray-500">No students found in this section.</p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
                         {students.map((student) => (
                             <StudentCard
                                 key={student.id}

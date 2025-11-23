@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Input from '../components/Input';
-import Button from '../components/Button';
-import { Upload } from 'lucide-react';
+import { Ticket, User, Code, Globe, Award } from 'lucide-react';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -25,7 +22,6 @@ const Register = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        // Auto-trim whitespace for username fields to prevent copy-paste errors
         let finalValue = value;
         if (['github_username', 'leetcode_username', 'email', 'roll_number'].includes(name)) {
             finalValue = value.trim();
@@ -43,7 +39,6 @@ const Register = () => {
         setErrors({});
 
         try {
-            // Convert empty strings to null for Pydantic validation
             const sanitizedData = Object.fromEntries(
                 Object.entries(formData).map(([key, value]) => [key, value === '' ? null : value])
             );
@@ -61,7 +56,6 @@ const Register = () => {
                 throw new Error(data.detail || 'Registration failed');
             }
 
-            // Success
             navigate('/');
         } catch (error) {
             console.error("Registration error:", error);
@@ -72,160 +66,221 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen bg-bg-light">
-            <Navbar />
+        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 py-12 px-4">
+            <div className="max-w-5xl mx-auto">
+                {/* Ticket Container */}
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_180px] bg-gradient-to-br from-yellow-50 to-amber-50 rounded-2xl border-4 border-gray-900 overflow-hidden shadow-2xl">
 
-            <main className="pt-24 pb-12 max-w-3xl mx-auto px-4 sm:px-6">
-                <div className="bg-white rounded-2xl shadow-sm border border-border-light p-6 sm:p-10">
-                    <div className="mb-8">
-                        <h1 className="text-2xl font-bold text-text-main">Student Registration</h1>
-                        <p className="text-gray-500 mt-1">Join the directory to connect with peers.</p>
-                    </div>
-
-                    <form onSubmit={handleSubmit} className="space-y-8">
-                        {/* Personal Info */}
-                        <section className="space-y-4">
-                            <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider border-b border-border-light pb-2">
-                                Personal Information
-                            </h2>
-                            <div className="grid sm:grid-cols-2 gap-4">
-                                <Input
-                                    label="Full Name"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <Input
-                                    label="Roll Number"
-                                    name="roll_number"
-                                    value={formData.roll_number}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <Input
-                                    label="Email Address"
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <div className="flex flex-col gap-1.5">
-                                    <label className="text-sm font-medium text-text-main">Section</label>
-                                    <select
-                                        name="section"
-                                        value={formData.section}
-                                        onChange={handleChange}
-                                        className="px-4 py-2.5 rounded-lg border border-border-light bg-white text-text-main focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
-                                    >
-                                        <option value="A">Section A</option>
-                                        <option value="B">Section B</option>
-                                        <option value="C">Section C</option>
-                                        <option value="D">Section D</option>
-                                    </select>
+                    {/* Main Ticket */}
+                    <div className="p-8">
+                        {/* Header */}
+                        <div className="bg-gray-900 text-yellow-50 px-6 py-4 -mx-8 -mt-8 mb-8">
+                            <div className="flex items-center gap-3">
+                                <Ticket className="w-10 h-10" />
+                                <div>
+                                    <h1 className="text-3xl font-black tracking-wider">KIET STUDENT PASS</h1>
+                                    <p className="text-sm text-yellow-200">Directory Registration</p>
                                 </div>
                             </div>
-                        </section>
+                        </div>
 
-                        {/* Profiles */}
-                        <section className="space-y-4">
-                            <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider border-b border-border-light pb-2">
-                                Coding Profiles
-                            </h2>
-                            <div className="grid sm:grid-cols-2 gap-4">
-                                <Input
-                                    label="GitHub Username"
-                                    name="github_username"
-                                    value={formData.github_username}
-                                    onChange={handleChange}
-                                    placeholder="e.g. octocat"
-                                />
-                                <Input
-                                    label="LeetCode Username"
-                                    name="leetcode_username"
-                                    value={formData.leetcode_username}
-                                    onChange={handleChange}
-                                    placeholder="e.g. leetcode_user"
-                                />
-                            </div>
-                        </section>
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            {/* Personal Info Grid */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {/* Passenger Info */}
+                                <div className="md:col-span-2 border-4 border-gray-900 border-l-0 border-t-0 p-4">
+                                    <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">Student Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full text-xl font-bold text-gray-900 bg-transparent border-none outline-none mt-1"
+                                        placeholder="Enter full name"
+                                    />
+                                </div>
 
-                        {/* Social & Portfolio */}
-                        <section className="space-y-4">
-                            <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider border-b border-border-light pb-2">
-                                Social & Portfolio
-                            </h2>
-                            <div className="space-y-4">
-                                <Input
-                                    label="LinkedIn Profile URL"
-                                    name="linkedin_url"
-                                    value={formData.linkedin_url}
-                                    onChange={handleChange}
-                                    placeholder="https://linkedin.com/in/..."
-                                />
-                                <Input
-                                    label="Figma Profile URL"
-                                    name="figma_url"
-                                    value={formData.figma_url}
-                                    onChange={handleChange}
-                                    placeholder="https://figma.com/@..."
-                                />
-                                <Input
-                                    label="Portfolio Website URL"
-                                    name="portfolio_url"
-                                    value={formData.portfolio_url}
-                                    onChange={handleChange}
-                                    placeholder="https://..."
-                                />
-                            </div>
-                        </section>
+                                {/* Roll Number */}
+                                <div className="border-4 border-gray-900 border-l-0 border-t-0 p-4">
+                                    <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">Roll Number</label>
+                                    <input
+                                        type="text"
+                                        name="roll_number"
+                                        value={formData.roll_number}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full text-lg font-bold text-gray-900 bg-transparent border-none outline-none mt-1"
+                                        placeholder="2100000000"
+                                    />
+                                </div>
 
-                        {/* Bio */}
-                        <section className="space-y-4">
-                            <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider border-b border-border-light pb-2">
-                                About You
-                            </h2>
-                            <div className="space-y-4">
-                                <div className="flex flex-col gap-1.5">
-                                    <label className="text-sm font-medium text-text-main">Skills & Expertise</label>
+                                {/* Email */}
+                                <div className="border-4 border-gray-900 border-t-0 border-r-0 p-4">
+                                    <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">Email</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full text-lg font-bold text-gray-900 bg-transparent border-none outline-none mt-1"
+                                        placeholder="student@kiet.edu"
+                                    />
+                                </div>
+
+                                {/* GitHub */}
+                                <div className="border-4 border-gray-900 border-l-0 border-t-0 p-4">
+                                    <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1">
+                                        <Code className="w-3 h-3" /> GitHub
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="github_username"
+                                        value={formData.github_username}
+                                        onChange={handleChange}
+                                        className="w-full text-lg font-bold text-gray-900 bg-transparent border-none outline-none mt-1"
+                                        placeholder="username"
+                                    />
+                                </div>
+
+                                {/* LeetCode */}
+                                <div className="border-4 border-gray-900 border-t-0 border-r-0 p-4">
+                                    <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1">
+                                        <Award className="w-3 h-3" /> LeetCode
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="leetcode_username"
+                                        value={formData.leetcode_username}
+                                        onChange={handleChange}
+                                        className="w-full text-lg font-bold text-gray-900 bg-transparent border-none outline-none mt-1"
+                                        placeholder="username"
+                                    />
+                                </div>
+
+                                {/* LinkedIn */}
+                                <div className="border-4 border-gray-900 border-l-0 border-t-0 p-4">
+                                    <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">LinkedIn</label>
+                                    <input
+                                        type="url"
+                                        name="linkedin_url"
+                                        value={formData.linkedin_url}
+                                        onChange={handleChange}
+                                        className="w-full text-sm font-semibold text-gray-900 bg-transparent border-none outline-none mt-1"
+                                        placeholder="linkedin.com/in/..."
+                                    />
+                                </div>
+
+                                {/* Portfolio */}
+                                <div className="border-4 border-gray-900 border-t-0 border-r-0 p-4">
+                                    <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1">
+                                        <Globe className="w-3 h-3" /> Portfolio
+                                    </label>
+                                    <input
+                                        type="url"
+                                        name="portfolio_url"
+                                        value={formData.portfolio_url}
+                                        onChange={handleChange}
+                                        className="w-full text-sm font-semibold text-gray-900 bg-transparent border-none outline-none mt-1"
+                                        placeholder="yoursite.com"
+                                    />
+                                </div>
+
+                                {/* Skills */}
+                                <div className="md:col-span-2 border-4 border-gray-900 border-l-0 border-t-0 border-r-0 p-4">
+                                    <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">Skills & Expertise</label>
                                     <textarea
                                         name="skills_description"
                                         value={formData.skills_description}
                                         onChange={handleChange}
-                                        rows={3}
-                                        className="px-4 py-2.5 rounded-lg border border-border-light bg-white text-text-main placeholder:text-gray-400 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors resize-none"
-                                        placeholder="React, Python, UI Design..."
-                                    />
-                                </div>
-                                <div className="flex flex-col gap-1.5">
-                                    <label className="text-sm font-medium text-text-main">Bio</label>
-                                    <textarea
-                                        name="bio_description"
-                                        value={formData.bio_description}
-                                        onChange={handleChange}
-                                        rows={4}
-                                        className="px-4 py-2.5 rounded-lg border border-border-light bg-white text-text-main placeholder:text-gray-400 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors resize-none"
-                                        placeholder="Tell us a bit about yourself..."
+                                        rows={2}
+                                        className="w-full text-sm font-medium text-gray-900 bg-transparent border-none outline-none mt-1 resize-none"
+                                        placeholder="React, Python, UI/UX Design..."
                                     />
                                 </div>
                             </div>
-                        </section>
 
-                        {errors.submit && (
-                            <div className="p-4 bg-red-50 text-red-600 rounded-lg text-sm">
-                                {errors.submit}
+                            {/* Fine Print */}
+                            <div className="text-xs font-mono leading-relaxed text-gray-600 pt-4 border-t-2 border-dotted border-gray-400">
+                                <p>Registration grants you access to the KIET Student Directory. Your profile will be visible to all students and faculty.</p>
+                                <p className="mt-2 pt-2 border-t border-dotted border-gray-400">
+                                    This registration is Non-refundable • Noodle Lab
+                                </p>                <p className="mt-2 pt-2 border-t border-dotted border-gray-400">
+                                    Also please insert you name usename and not link on leetcode & github textbox
+                                </p>
                             </div>
-                        )}
 
-                        <div className="flex justify-end pt-4">
-                            <Button type="submit" disabled={loading} className="w-full sm:w-auto">
-                                {loading ? 'Registering...' : 'Complete Registration'}
-                            </Button>
+                            {errors.submit && (
+                                <div className="p-4 bg-red-100 border-2 border-red-600 text-red-800 rounded-lg text-sm font-semibold">
+                                    {errors.submit}
+                                </div>
+                            )}
+
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="w-full bg-gray-900 text-yellow-50 py-4 rounded-lg font-black text-lg tracking-wider hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {loading ? 'PROCESSING...' : 'COMPLETE REGISTRATION'}
+                            </button>
+                        </form>
+                    </div>
+
+                    {/* Side Stub */}
+                    <div className="hidden lg:block bg-gradient-to-b from-red-500 to-red-600 border-l-4 border-dashed border-gray-900 p-4 relative">
+                        <div className="h-full gap-7 flex flex-col items-center justify-between py-6">
+                            <div className="bg-gray-900  text-yellow-50 px-3 py-8 font-black text-lg tracking-widest text-center">
+                                KIET PASS
+                            </div>
+
+                            <div className="border-4 border-gray-900 p-3 bg-yellow-50 w-full text-center">
+                                <div className="text-xs font-bold text-red-600">SECTION</div>
+                                <select
+                                    name="section"
+                                    value={formData.section}
+                                    onChange={handleChange}
+                                    className="w-full text-2xl font-black text-gray-900 bg-transparent border-none outline-none mt-1 text-center"
+                                >
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                </select>
+                            </div>
+
+                            <div className="border-4 border-gray-900 border-t-0 p-3 bg-yellow-50 w-full text-center">
+                                <div className="text-xs font-bold text-red-600">YEAR</div>
+                                <div className="text-lg font-black text-gray-900">2025</div>
+                            </div>
+
+                            {/* Barcode */}
+                            <div className="mt-auto w-full">
+                                <div className="h-20 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-[length:4px_100%] bg-repeat-x"></div>
+                                <div className="text-center text-xs font-mono font-bold text-yellow-50 mt-2 tracking-widest">
+                                    {formData.roll_number || '000000000'}
+                                </div>
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </main>
+
+                {/* Mobile Section Selector */}
+                <div className="lg:hidden mt-6 bg-red-500 rounded-xl border-4 border-gray-900 p-6">
+                    <label className="text-sm font-bold text-yellow-50 uppercase tracking-wider block mb-2">Select Section</label>
+                    <select
+                        name="section"
+                        value={formData.section}
+                        onChange={handleChange}
+                        className="w-full text-3xl font-black text-gray-900 bg-yellow-50 border-4 border-gray-900 rounded-lg p-4"
+                    >
+                        <option value="A">Section A</option>
+                        <option value="B">Section B</option>
+                        <option value="C">Section C</option>
+                        <option value="D">Section D</option>
+                    </select>
+                </div>
+            </div>
         </div>
     );
 };

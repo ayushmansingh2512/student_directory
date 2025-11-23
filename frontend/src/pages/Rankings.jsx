@@ -95,7 +95,7 @@ const Rankings = () => {
                         <h1 className="text-4xl font-extrabold text-text-main">Rankings Dashboard</h1>
                     </div>
                     <p className="text-lg text-text-light max-w-2xl mx-auto">
-                        Track and celebrate the achievements of our top students in coding and development.
+                        Track and celebrate the achievements of our top students in Comapative coding and development.
                     </p>
                 </motion.div>
 
@@ -113,7 +113,7 @@ const Rankings = () => {
                                 onClick={() => setActiveTab(tab)}
                                 className={clsx(
                                     "relative z-10 flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-lg transition-all duration-300",
-                                    activeTab === tab ? "text-white" : "text-text-light hover:text-text-main"
+                                    activeTab === tab ? "text-green-600" : "text-text-light hover:text-text-main"
                                 )}
                             >
                                 {tab === 'github' ? <GitBranch className="w-5 h-5" /> : <Code2 className="w-5 h-5" />}
@@ -159,7 +159,7 @@ const Rankings = () => {
                                 <h2 className="text-3xl font-bold text-text-main">
                                     {activeTab === 'github' ? 'GitHub Rankings' : 'LeetCode Rankings'}
                                 </h2>
-                                <p className="text-base text-text-light">
+                                <p className="text-base text-text-light" style={{ color: activeTab === 'github' ? 'green' : 'orange' }}>
                                     {activeTab === 'github'
                                         ? 'Top contributors by commits'
                                         : 'Top problem solvers by points'}
@@ -180,7 +180,7 @@ const Rankings = () => {
                                 ))
                             ) : (
                                 <div className="text-center py-16 bg-white rounded-xl border border-gray-100 shadow-sm">
-                                    <p className="text-xl text-text-light">
+                                    <p className="text-xl text-text-light ">
                                         No {activeTab === 'github' ? 'GitHub' : 'LeetCode'} rankings available yet.
                                     </p>
                                 </div>
