@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import SectionTabs from '../components/SectionTabs';
 import StudentCard from '../components/StudentCard';
 import StudentModal from '../components/StudentModal';
+import SectionTabs from '../components/SectionTabs';
+import { API_URL } from '../config';
 
 const Home = () => {
-    const [activeSection, setActiveSection] = useState('A');
     const [students, setStudents] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [selectedStudent, setSelectedStudent] = useState(null);
+    const [activeSection, setActiveSection] = useState('A');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchStudents();
@@ -16,7 +17,7 @@ const Home = () => {
     const fetchStudents = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:8000/api/students?section=${activeSection}`);
+            const response = await fetch(`${API_URL}/api/students?section=${activeSection}`);
             if (!response.ok) throw new Error('Failed to fetch students');
 
             const data = await response.json();
@@ -61,7 +62,7 @@ const Home = () => {
 
                 {loading ? (
                     <div className="flex items-center justify-center py-20">
-                        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-accent"></div>
+                        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-gray-900"></div>
                     </div>
                 ) : students.length === 0 ? (
                     <div className="text-center py-20">

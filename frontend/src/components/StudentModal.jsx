@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Github, Code, Linkedin, Figma, Globe, RefreshCw } from 'lucide-react';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 const StudentModal = ({ student: initialStudent, onClose }) => {
     const [student, setStudent] = useState(initialStudent);
@@ -10,7 +11,7 @@ const StudentModal = ({ student: initialStudent, onClose }) => {
     const handleRefresh = async () => {
         setIsRefreshing(true);
         try {
-            const response = await axios.post(`http://localhost:8000/api/students/${student.roll_number}/refresh`);
+            const response = await axios.post(`${API_URL}/api/students/${student.roll_number}/refresh`);
             setStudent(response.data);
         } catch (error) {
             console.error("Failed to refresh stats:", error);

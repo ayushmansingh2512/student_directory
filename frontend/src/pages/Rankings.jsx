@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, GitBranch, Code2 } from 'lucide-react';
 import clsx from 'clsx';
+import { API_URL } from '../config';
 
 const Rankings = () => {
     const [activeTab, setActiveTab] = useState('github');
@@ -17,8 +18,8 @@ const Rankings = () => {
         setLoading(true);
         try {
             const [githubRes, leetcodeRes] = await Promise.all([
-                fetch('http://localhost:8000/api/rankings/github'),
-                fetch('http://localhost:8000/api/rankings/leetcode')
+                fetch(`${API_URL}/api/rankings/github`),
+                fetch(`${API_URL}/api/rankings/leetcode`)
             ]);
 
             if (githubRes.ok) {
