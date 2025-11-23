@@ -98,7 +98,7 @@ const Register = () => {
                                         onChange={handleChange}
                                         required
                                         className="w-full text-xl font-bold text-gray-900 bg-transparent border-none outline-none mt-1"
-                                        placeholder="Enter full name"
+                                        placeholder="Enter full name "
                                     />
                                 </div>
 
@@ -112,7 +112,7 @@ const Register = () => {
                                         onChange={handleChange}
                                         required
                                         className="w-full text-lg font-bold text-gray-900 bg-transparent border-none outline-none mt-1"
-                                        placeholder="2100000000"
+                                        placeholder="202510116100063"
                                     />
                                 </div>
 
@@ -126,7 +126,7 @@ const Register = () => {
                                         onChange={handleChange}
                                         required
                                         className="w-full text-lg font-bold text-gray-900 bg-transparent border-none outline-none mt-1"
-                                        placeholder="student@kiet.edu"
+                                        placeholder="student@gmail.com"
                                     />
                                 </div>
 
@@ -141,7 +141,7 @@ const Register = () => {
                                         value={formData.github_username}
                                         onChange={handleChange}
                                         className="w-full text-lg font-bold text-gray-900 bg-transparent border-none outline-none mt-1"
-                                        placeholder="username"
+                                        placeholder="username (ayushmansingh2512) notlink"
                                     />
                                 </div>
 
@@ -156,7 +156,7 @@ const Register = () => {
                                         value={formData.leetcode_username}
                                         onChange={handleChange}
                                         className="w-full text-lg font-bold text-gray-900 bg-transparent border-none outline-none mt-1"
-                                        placeholder="username"
+                                        placeholder="username (ayushmansingh2512) notlink"
                                     />
                                 </div>
 
