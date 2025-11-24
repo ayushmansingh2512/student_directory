@@ -96,7 +96,7 @@ const Rankings = () => {
                         <h1 className="text-4xl font-extrabold text-text-main">Rankings Dashboard</h1>
                     </div>
                     <p className="text-lg text-text-light max-w-2xl mx-auto">
-                        Track and celebrate the achievements of our top students in Comapative coding and development.
+                        Track and celebrate the achievements of our top students in competitive programming and development.
                     </p>
                 </motion.div>
 
