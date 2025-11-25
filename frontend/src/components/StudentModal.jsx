@@ -200,7 +200,7 @@ const StudentModal = ({ student: initialStudent, onClose }) => {
                         {/* Bottom Strip */}
                         <div className="bg-gray-900 px-6 py-3 border-t-4 border-gray-900">
                             <div className="text-center text-xs font-mono font-bold text-yellow-50 tracking-widest">
-                                KIET DIRECTORY • 2024
+                                KIET DIRECTORY • 2025
                             </div>
                         </div>
                     </div>

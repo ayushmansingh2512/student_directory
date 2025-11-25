@@ -42,7 +42,7 @@ const StudentCard = ({ student, onClick }) => {
                 <div className="p-4">
                     {/* Name Section */}
                     <div className="border-4 border-gray-900 border-l-0 border-r-0 border-t-0 pb-3 mb-3">
-                        <div className="text-xs font-bold text-gray-600 uppercase tracking-wider">Name</div>
+                        {/* <div className="text-xs font-bold text-gray-600 uppercase tracking-wider">Name</div> */}
                         <h3 className="text-lg font-black text-gray-900 truncate uppercase tracking-wide">
                             {student.name}
                         </h3>
