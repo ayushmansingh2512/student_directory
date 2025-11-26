@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from ..database import get_db
 from ..models import Student
-from ..schemas import StudentResponse, SectionEnum
+from ..schemas import StudentResponse, SectionEnum, StudentUpdate
 from ..services.stats_service import update_student_stats
 
 
@@ -22,7 +22,7 @@ def get_students(
     query = db.query(Student)
     if section:
         query = query.filter(Student.section == section.value)
-    return query.offset(skip).limit(limit).all()
+    return query.order_by(Student.roll_number).offset(skip).limit(limit).all()
 
 @router.get("/{roll_number}", response_model=StudentResponse)
 def get_student(roll_number: str, db: Session = Depends(get_db)):
@@ -39,3 +39,17 @@ async def refresh_student_stats(roll_number: str, db: Session = Depends(get_db))
     
     updated_student = await update_student_stats(db, student)
     return updated_student
+
+@router.put("/{roll_number}", response_model=StudentResponse)
+def update_student(roll_number: str, student_update: StudentUpdate, db: Session = Depends(get_db)):
+    db_student = db.query(Student).filter(Student.roll_number == roll_number).first()
+    if not db_student:
+        raise HTTPException(status_code=404, detail="Student not found")
+    
+    update_data = student_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(db_student, key, value)
+    
+    db.commit()
+    db.refresh(db_student)
+    return db_student
