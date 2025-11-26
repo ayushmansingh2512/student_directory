@@ -16,9 +16,9 @@ class StudentBase(BaseModel):
     section: SectionEnum
     github_username: Optional[str] = None
     leetcode_username: Optional[str] = None
-    linkedin_url: Optional[HttpUrl] = None
-    figma_url: Optional[HttpUrl] = None
-    portfolio_url: Optional[HttpUrl] = None
+    linkedin_url: Optional[str] = None
+    figma_url: Optional[str] = None
+    portfolio_url: Optional[str] = None
     skills_description: Optional[str] = None
     bio_description: Optional[str] = None
 
@@ -30,9 +30,9 @@ class StudentUpdate(BaseModel):
     section: Optional[SectionEnum] = None
     github_username: Optional[str] = None
     leetcode_username: Optional[str] = None
-    linkedin_url: Optional[HttpUrl] = None
-    figma_url: Optional[HttpUrl] = None
-    portfolio_url: Optional[HttpUrl] = None
+    linkedin_url: Optional[str] = None
+    figma_url: Optional[str] = None
+    portfolio_url: Optional[str] = None
     skills_description: Optional[str] = None
     bio_description: Optional[str] = None
 
