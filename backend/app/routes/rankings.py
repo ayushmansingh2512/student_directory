@@ -12,11 +12,11 @@ router = APIRouter(
 )
 
 @router.get("/github", response_model=List[StudentResponse])
-def get_github_rankings(limit: int = 10, db: Session = Depends(get_db)):
+def get_github_rankings(limit: int = 1000, db: Session = Depends(get_db)):
     return db.query(Student).order_by(desc(Student.github_commits_count)).limit(limit).all()
 
 @router.get("/leetcode", response_model=List[StudentResponse])
-def get_leetcode_rankings(limit: int = 10, db: Session = Depends(get_db)):
+def get_leetcode_rankings(limit: int = 1000, db: Session = Depends(get_db)):
     return db.query(Student).order_by(desc(Student.leetcode_points)).limit(limit).all()
 
 @router.post("/refresh")
