@@ -17,7 +17,9 @@ const Register = () => {
         figma_url: '',
         portfolio_url: '',
         skills_description: '',
-        bio_description: ''
+        bio_description: '',
+        moodle_username: '',
+        moodle_password: ''
     });
     const [errors, setErrors] = useState({});
 
@@ -199,6 +201,33 @@ const Register = () => {
                                         className="w-full text-sm font-medium text-gray-900 bg-transparent border-none outline-none mt-1 resize-none"
                                         placeholder="React, Python, UI/UX Design..."
                                     />
+                                </div>
+                            </div>
+
+                            {/* Moodle Credentials */}
+                            <div className="md:col-span-2 border-4 border-gray-900 border-l-0 border-t-0 border-r-0 p-4 bg-yellow-100/50">
+                                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider block mb-2">Moodle Credentials (Optional)</label>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <input
+                                            type="text"
+                                            name="moodle_username"
+                                            value={formData.moodle_username}
+                                            onChange={handleChange}
+                                            className="w-full text-sm font-bold text-gray-900 bg-transparent border-b-2 border-gray-400 focus:border-gray-900 outline-none py-2"
+                                            placeholder="Moodle Username"
+                                        />
+                                    </div>
+                                    <div>
+                                        <input
+                                            name="moodle_password"
+                                            value={formData.moodle_password}
+                                            onChange={handleChange}
+                                            className="w-full text-sm font-bold text-gray-900 bg-transparent border-b-2 border-gray-400 focus:border-gray-900 outline-none py-2"
+                                            placeholder="Moodle Password"
+                                            type="password"
+                                        />
+                                    </div>
                                 </div>
                             </div>
 

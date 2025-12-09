@@ -2,6 +2,7 @@ from pydantic import BaseModel, EmailStr, HttpUrl, Field
 from typing import Optional
 from datetime import datetime
 from enum import Enum
+from typing import List
 
 class SectionEnum(str, Enum):
     A = "A"
@@ -21,6 +22,8 @@ class StudentBase(BaseModel):
     portfolio_url: Optional[str] = None
     skills_description: Optional[str] = None
     bio_description: Optional[str] = None
+    moodle_username: Optional[str] = None
+    moodle_password: Optional[str] = None
 
 class StudentCreate(StudentBase):
     pass
@@ -35,6 +38,8 @@ class StudentUpdate(BaseModel):
     portfolio_url: Optional[str] = None
     skills_description: Optional[str] = None
     bio_description: Optional[str] = None
+    moodle_username: Optional[str] = None
+    moodle_password: Optional[str] = None
 
 class StudentResponse(StudentBase):
     id: int
@@ -47,3 +52,13 @@ class StudentResponse(StudentBase):
 
     class Config:
         from_attributes = True
+
+class Assignment(BaseModel):
+    title: str
+    course: str
+    status: str # "Left" or "Done"
+    date: str # e.g. "Friday, 12 December"
+
+class MoodleAssignmentsResponse(BaseModel):
+    pending: List[Assignment]
+    completed: List[Assignment]

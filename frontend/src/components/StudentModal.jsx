@@ -4,6 +4,7 @@ import { X, Github, Code, Linkedin, Figma, Globe, RefreshCw, Edit2, Save, Check 
 import axios from 'axios';
 import { API_URL } from '../config';
 import Input from './Input';
+import MoodleDashboard from './MoodleDashboard';
 
 const StudentModal = ({ student: initialStudent, onClose }) => {
     const [student, setStudent] = useState(initialStudent);
@@ -18,7 +19,10 @@ const StudentModal = ({ student: initialStudent, onClose }) => {
         portfolio_url: initialStudent.portfolio_url || '',
         figma_url: initialStudent.figma_url || '',
         bio_description: initialStudent.bio_description || '',
-        skills_description: initialStudent.skills_description || ''
+        bio_description: initialStudent.bio_description || '',
+        skills_description: initialStudent.skills_description || '',
+        moodle_username: initialStudent.moodle_username || '',
+        moodle_password: initialStudent.moodle_password || ''
     });
 
     const handleRefresh = async () => {
@@ -188,6 +192,25 @@ const StudentModal = ({ student: initialStudent, onClose }) => {
                                         />
                                     </div>
 
+                                    <div className="space-y-3 pt-2">
+                                        <h3 className="text-sm font-bold text-gray-900 uppercase border-b border-gray-200 pb-1">Moodle Credentials</h3>
+                                        <Input
+                                            label="Moodle Username"
+                                            name="moodle_username"
+                                            value={formData.moodle_username}
+                                            onChange={handleInputChange}
+                                            placeholder="username"
+                                        />
+                                        <Input
+                                            label="Moodle Password"
+                                            name="moodle_password"
+                                            value={formData.moodle_password}
+                                            onChange={handleInputChange}
+                                            placeholder="password"
+                                            type="password"
+                                        />
+                                    </div>
+
                                     <button
                                         onClick={handleSave}
                                         className="w-full flex items-center justify-center gap-2 py-3 mt-4 rounded-xl font-bold uppercase text-sm bg-green-600 text-white hover:bg-green-700 border-2 border-gray-900 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
@@ -315,6 +338,22 @@ const StudentModal = ({ student: initialStudent, onClose }) => {
                                             </a>
                                         )}
                                     </div>
+
+                                    {/* Moodle Dashboard */}
+                                    {(student.moodle_username && student.moodle_password) && (
+                                        <div className="mb-6">
+                                            <MoodleDashboard rollNumber={student.roll_number} />
+                                        </div>
+                                    )}
+
+                                    {/* Moodle Info (Private) */}
+                                    {(student.moodle_username || student.moodle_password) && (
+                                        <div className="mb-4 text-center p-2 bg-yellow-50 rounded-lg border border-yellow-200">
+                                            <h4 className="text-xs font-bold text-yellow-800 uppercase mb-1">Moodle Credentials</h4>
+                                            <p className="text-xs text-gray-700">User: {student.moodle_username}</p>
+                                            <p className="text-xs text-gray-700">Pass: ••••••••</p>
+                                        </div>
+                                    )}
 
                                     {/* Refresh Button */}
                                     <div className="border-t-2 border-gray-900 pt-4">

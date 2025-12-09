@@ -17,6 +17,10 @@ class Student(Base):
     linkedin_url = Column(String, nullable=True)
     figma_url = Column(String, nullable=True)
     portfolio_url = Column(String, nullable=True)
+
+    # Moodle Credentials
+    moodle_username = Column(String, nullable=True)
+    moodle_password = Column(String, nullable=True)
     
     # Bio/Skills
     skills_description = Column(Text, nullable=True)
